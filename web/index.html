@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BCBC Dexter Agent Control</title>
+<style>
+body{margin:0;background:#07111f;color:#e8f3ff;font-family:system-ui,Arial,sans-serif}
+main{max-width:1000px;margin:auto;padding:24px}
+.banner{width:100%;border-radius:20px;border:1px solid #24415f;box-shadow:0 10px 30px #0008;margin-bottom:22px}
+.card{background:#101c2e;border:1px solid #253b5c;border-radius:18px;padding:18px;margin:16px 0}
+code,pre{display:block;background:#020814;color:#8fffd2;padding:14px;border-radius:12px;white-space:pre-wrap;word-break:break-word}
+button{margin-top:10px;background:#22c7ff;color:#00111d;border:0;border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer}
+.warn{color:#ffd27a}
+</style>
+</head>
+<body>
+<main>
+  <img class="banner" src="assets/dexter-banner.png" alt="BCBC Dexter banner" onerror="this.style.display='none'">
+
+  <h1>BCBC Dexter Agent Control</h1>
+  <p>Safe copy/paste controls and demo output for the Dexter AI agent.</p>
+
+
+  <div class="card">
+    <h2>Chat with Dexter</h2>
+    <p class="warn">Run this in an SSH terminal on Dexter. Type /bye or CTRL+D to exit.</p>
+    <code>ollama run dexter-bcbc:latest</code>
+    <button onclick="copyCmd(this)">Copy</button>
+  </div>
+\n  <div class="card">
+    <h2>Launch Dexter Demo</h2>
+    <p class="warn">Run this in an SSH terminal on Dexter. It writes output to the window below.</p>
+    <code>~/Documents/bcbc-agent-control-repo/scripts/bcbc-agent-demo-run.sh</code>
+    <button onclick="copyCmd(this)">Copy</button>
+  </div>
+
+  <div class="card">
+    <h2>Live Demo Output</h2>
+    <button onclick="loadLog()">Refresh Output</button>
+    <pre id="output">Click Refresh Output after running the demo script.</pre>
+  </div>
+
+  <div class="card"><h2>Status</h2><code>bcbc-agent status</code><button onclick="copyCmd(this)">Copy</button></div>
+  <div class="card"><h2>Restart</h2><code>bcbc-agent restart</code><button onclick="copyCmd(this)">Copy</button></div>
+  <div class="card"><h2>Memory</h2><code>bcbc-agent memory</code><button onclick="copyCmd(this)">Copy</button></div>
+  <div class="card"><h2>Models</h2><code>bcbc-agent models</code><button onclick="copyCmd(this)">Copy</button></div>
+</main>
+
+<script>
+function copyCmd(btn){
+  const text = btn.parentElement.querySelector("code").innerText;
+  navigator.clipboard.writeText(text);
+  btn.innerText = "Copied";
+  setTimeout(()=>btn.innerText="Copy",1200);
+}
+async function loadLog(){
+  const r = await fetch("agent-demo.log?cache=" + Date.now());
+  document.getElementById("output").innerText = await r.text();
+}
+setInterval(loadLog, 5000);
+</script>
+</body>
+</html>
