@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BCBC Agent Control</title>
+  <meta name="description" content="Safe static control panel for BCBC local AI agents and Ollama systems.">
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="banner-card">
+        <img src="assets/img/agent-control-top.png" alt="BCBC Agent Control cockpit banner">
+      </div>
+      <p class="eyebrow">BCBC Technician Tools and Learning System</p>
+      <h1>BCBC Agent Control</h1>
+      <p class="lede">Safe static control panel for local AI agents, Ollama models, and copy-ready operator commands.</p>
+      <div class="status-strip">
+        <span>Static page</span>
+        <span>No browser shell</span>
+        <span>Operator-run commands</span>
+        <span>LAN demo ready</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="notice">
+      <h2>Safety Boundary</h2>
+      <p>This page does <strong>not</strong> execute arbitrary shell commands from the browser. Commands are copied and run intentionally by the operator.</p>
+    </section>
+
+    <section class="grid two">
+      <article class="card">
+        <h2>Dexter Agent Status</h2>
+        <p>Run on Dexter to check the local AI agent service.</p>
+        <pre><code>systemctl status dexter.service --no-pager</code></pre>
+        <button data-copy="systemctl status dexter.service --no-pager">Copy command</button>
+      </article>
+
+      <article class="card">
+        <h2>Dexter Recent Logs</h2>
+        <p>Show the latest service output without opening a full pager.</p>
+        <pre><code>journalctl -u dexter.service -n 80 --no-pager</code></pre>
+        <button data-copy="journalctl -u dexter.service -n 80 --no-pager">Copy command</button>
+      </article>
+
+      <article class="card">
+        <h2>Ollama Status</h2>
+        <p>Check whether the local Ollama model service is running.</p>
+        <pre><code>systemctl status ollama.service --no-pager</code></pre>
+        <button data-copy="systemctl status ollama.service --no-pager">Copy command</button>
+      </article>
+
+      <article class="card">
+        <h2>List Ollama Models</h2>
+        <p>Show installed local models.</p>
+        <pre><code>ollama list</code></pre>
+        <button data-copy="ollama list">Copy command</button>
+      </article>
+
+      <article class="card">
+        <h2>Running Models</h2>
+        <p>Show active loaded Ollama models and CPU/GPU split.</p>
+        <pre><code>ollama ps</code></pre>
+        <button data-copy="ollama ps">Copy command</button>
+      </article>
+
+      <article class="card">
+        <h2>GPU Status</h2>
+        <p>Useful on Dexter/Baxter when NVIDIA drivers and Ollama acceleration matter.</p>
+        <pre><code>nvidia-smi</code></pre>
+        <button data-copy="nvidia-smi">Copy command</button>
+      </article>
+    </section>
+
+    <section class="card wide">
+      <h2>Local AI Demo Command</h2>
+      <p>Use this for a quick, visible demo that shows a local model responding from terminal.</p>
+      <pre><code>ollama run qwen2.5-coder:7b 'In one sentence, explain why local AI can be useful for a technician.'</code></pre>
+      <button data-copy="ollama run qwen2.5-coder:7b 'In one sentence, explain why local AI can be useful for a technician.'">Copy demo command</button>
+    </section>
+
+    <section class="card wide">
+      <h2>Baxter Hub Mount Check</h2>
+      <p>Run from a client machine to confirm the central Baxter share is mounted as a local folder.</p>
+      <pre><code>mount | grep bcbc-hub || true
+ls -lah /mnt/bcbc-hub</code></pre>
+      <button data-copy="mount | grep bcbc-hub || true&#10;ls -lah /mnt/bcbc-hub">Copy commands</button>
+    </section>
+
+    <section class="card wide">
+      <h2>Demo Output Log</h2>
+      <p>Paste terminal output here while demonstrating. This stays in this browser only unless exported/copied.</p>
+      <textarea id="demoLog" spellcheck="false" placeholder="Paste demo output here..."></textarea>
+      <div class="button-row">
+        <button id="saveLog">Save locally</button>
+        <button id="clearLog" class="secondary">Clear</button>
+      </div>
+    </section>
+
+    <section class="grid three">
+      <article class="mini">
+        <h3>Docs</h3>
+        <p><a href="docs/architecture.md">Architecture</a></p>
+        <p><a href="docs/safety-model.md">Safety model</a></p>
+        <p><a href="docs/roadmap.md">Roadmap</a></p>
+      </article>
+      <article class="mini">
+        <h3>Commands</h3>
+        <p><a href="commands/dexter-status.md">Dexter status</a></p>
+        <p><a href="commands/ollama-commands.md">Ollama commands</a></p>
+        <p><a href="commands/baxter-hub-commands.md">Baxter hub commands</a></p>
+      </article>
+      <article class="mini">
+        <h3>Demos</h3>
+        <p><a href="demos/local-model-demo.md">Local model demo</a></p>
+        <p><a href="demos/agent-demo.md">Agent demo</a></p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>Ideas, design, and concepts: William J. Franza, assisted by ChatGPT. BCBC / AI-related project work: Mikey_LikesIT and ChatGPT.</p>
+  </footer>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

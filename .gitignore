@@ -1,0 +1,8 @@
+# Logs and local generated files
+logs/*
+!logs/.gitkeep
+*.log
+
+# Packages
+*.zip
+dist/
